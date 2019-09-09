@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Información de persona";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+<div class="jumbotron">
+    <ul class="list-group">
+        <li class="list-group-item">Nombre: Juan</li>
+        <li class="list-group-item">Primer Apellido: Perez</li>
+        <li class="list-group-item">Segundo Apellido: Gonzalez</li>
+        <li class="list-group-item">Cédula: 1151651651616</li>
+        <li class="list-group-item">CODELEC: 100645</li>
+    </ul>
+    <button type="button" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-edit"></span> @Html.ActionLink("Editar", "Edit", "Home")
+    </button>
+    
+</div>
