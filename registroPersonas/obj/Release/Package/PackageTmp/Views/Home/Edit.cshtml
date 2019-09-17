@@ -5,22 +5,56 @@
 
 <div class="jumbotron">
     <form role="form">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Nombre</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nombre</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Primer Apellido</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Apellido">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Segundo Apellido</label>
+                <input type="text" class="form-control" id="exampleInputPassword2" placeholder="Apellido">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">CODELEC</label>
+                <input type="text" class="form-control" id="codelec" placeholder="Codelec">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Primer Apellido</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Apellido">
+        <br />
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Provincia</label>
+                <select type="text" class="form-control" id="codelec" placeholder="Codelec">
+                    <option value="1">San José</option>
+                    <option value="2">Alajuela</option>
+                    <option value="3">Cartago</option>
+                    <option value="4">Heredia</option>
+                    <option value="5">Guanacaste</option>
+                    <option value="6">Puntarenas</option>
+                    <option value="7">Limón</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Cantón</label>
+                <select type="text" class="form-control" id="codelec" placeholder="Codelec">
+                    <option value="1">San José</option>
+                    <option value="2">Tibás</option>
+                    <option value="3">Desamparados</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Distrito</label>
+                <select type="text" class="form-control" id="codelec" placeholder="Codelec">
+                    <option value="1">San Rafael</option>
+                    <option value="2">San Juan</option>
+                    <option value="3">Santa Marta</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Segundo Apellido</label>
-            <input type="text" class="form-control" id="exampleInputPassword2" placeholder="Apellido">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">CODELEC</label>
-            <input type="text" class="form-control" id="codelec" placeholder="Codelec">
-        </div>
+
         <button type="submit" class="btn btn-success">Aceptar</button>
         <button type="submit" class="btn btn-default">@Html.ActionLink("Ir a página de inicio", "Index", "Home")</button>
     </form>
