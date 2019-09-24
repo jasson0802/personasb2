@@ -10,9 +10,9 @@
     <UseGlobalApplicationHostFile />
     <GoogleCloudPublishChoice>Gce</GoogleCloudPublishChoice>
     <GoogleCloudPublishConfiguration>Release</GoogleCloudPublishConfiguration>
-    <GoogleComputeEnginePublishInstanceName>instance-4</GoogleComputeEnginePublishInstanceName>
+    <GoogleComputeEnginePublishInstanceName>instance-3</GoogleComputeEnginePublishInstanceName>
     <GoogleComputeEnginePublishInstanceZone>us-central1-a</GoogleComputeEnginePublishInstanceZone>
-    <GoogleComputeEnginePublishInstanceUserName>jas02</GoogleComputeEnginePublishInstanceUserName>
+    <GoogleComputeEnginePublishInstanceUserName>jas01</GoogleComputeEnginePublishInstanceUserName>
     <GoogleComputeEnginePublishOpenWebsite>True</GoogleComputeEnginePublishOpenWebsite>
     <GoogleComputeEnginePublishLaunchRemoteDebugger>False</GoogleComputeEnginePublishLaunchRemoteDebugger>
     <GoogleComputeEnginePublishSiteName>Default Web Site</GoogleComputeEnginePublishSiteName>
