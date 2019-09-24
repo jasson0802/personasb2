@@ -122,3 +122,9 @@ C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPe
 C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\obj\Debug\registroPersonas.csproj.CoreCompileInputs.cache
 C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\obj\Debug\registroPersonas.dll
 C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\obj\Debug\registroPersonas.pdb
+C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\bin\Oracle.ManagedDataAccess.dll
+C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\bin\Oracle.ManagedDataAccess.EntityFramework.dll
+C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\bin\OracleDSN.xsc
+C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\bin\OracleDSN.xss
+C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\bin\OracleDSN.Designer.cs
+C:\Users\Jason\Documents\Visual Studio 2017\Projects\registroPersonas\registroPersonas\bin\OracleDSN.xsd

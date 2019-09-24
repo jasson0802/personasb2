@@ -9,16 +9,26 @@
     <form role="form">
         <div class="form-group">
             <label for="exampleInputEmail1">Nombre</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Primer Apellido</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Apellido">
+            <input type="text" class="form-control" id="apellido1" placeholder="Apellido">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Segundo Apellido</label>
-            <input type="text" class="form-control" id="exampleInputPassword2" placeholder="Apellido">
+            <input type="text" class="form-control" id="apellido2" placeholder="Apellido">
         </div>
-        <button type="submit" class="btn btn-default">@Html.ActionLink("Buscar persona", "Person", "Home")</button>
+        <button onclick="search()" class="btn btn-default">Buscar persona</button>
     </form>
 </div>
+
+<script>
+    function search() {
+        alert("ENTRA!!!")
+        nombre = "nombre=" + document.getElementById("nombre").value;
+        apellido1 = "apellido1=" + document.getElementById("apellido1").value;
+        apellido2 = "apellido2=" + document.getElementById("apellido2").value;
+        window.location.href = "../Person?" + nombre + "&" + apellido1 + "&" + apellido2;
+    }
+</script>
