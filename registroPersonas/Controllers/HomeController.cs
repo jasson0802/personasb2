@@ -82,7 +82,22 @@ namespace registroPersonas.Controllers
 
         public ActionResult EditResult(string nombre, string apellido1, string apellido2, string cedula, string codelec)
         {
-            ViewBag.Persona = Persona.Edit(nombre, apellido1, apellido2, cedula, codelec);
+            Persona tempPersona = new Persona
+            {
+                Nombre = "",
+                Apellido1 = "",
+                Apellido2 = "",
+                Cedula = 0,
+                Codelec = 0
+            };
+
+            if (!string.IsNullOrEmpty(cedula))
+            {
+                ViewBag.Persona = Persona.Edit(nombre, apellido1, apellido2, cedula, codelec);
+            }
+            else {
+                ViewBag.Persona = tempPersona;
+            }
 
             return View("EditResult");
         }

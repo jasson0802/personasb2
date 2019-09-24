@@ -93,12 +93,25 @@ namespace registroPersonas.Models
         {
             Persona responsePersona = new Persona();
             connection.Open();
-
-            string sqlQuery = string.Format("UPDATE Personas SET  nombre = '{0}', apellido1 = '{1}', apellido2 = '{1}', codelec = '{2}'", nombre.ToUpper(), apellido1.ToUpper(), apellido2.ToUpper(), codelec);
-
+            
+            string sqlQuery = string.Format("SELECT * FROM Personas WHERE cedula = '{0}'", cedula);
             OracleDataAdapter oda = new OracleDataAdapter(sqlQuery, connection);
+           
+            OracleCommandBuilder builder = new OracleCommandBuilder(oda);
+
             DataTable dt = new DataTable();
             oda.Fill(dt);
+
+            dt.Columns["cedula"].Unique = true;
+
+            DataRow row = dt.Rows[0];
+
+            row["nombre"] = nombre;
+            row["apellido1"] = apellido1;
+            row["apellido2"] = apellido2;
+            row["codelec"] = codelec;
+
+            oda.Update(dt);
 
             try
             {

@@ -12,8 +12,11 @@
         <li class="list-group-item">Cédula: @ViewBag.Persona.Cedula</li>
         <li class="list-group-item">CODELEC: @ViewBag.Persona.Codelec</li>
     </ul>
-    <button type="button" class="btn btn-default btn-lg">
-        <span class="glyphicon glyphicon-edit"></span> @Html.ActionLink("Editar", "Edit", "Home")
+
+    <!--@Html.ActionLink("Editar", "Edit", "Home")-->
+
+    <button type="button" onclick="edit()" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-edit"></span>Editar
     </button>
 
 </div>

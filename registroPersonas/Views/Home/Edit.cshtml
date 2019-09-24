@@ -8,7 +8,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="exampleInputEmail1">Nombre</label>
-                <input type="hidden" value="@ViewBag.Persona.Cedula" class="form-control" id="idPersona">
+                <input type="hidden" value="@ViewBag.Persona.Cedula" class="form-control" id="cedula">
                 <input type="text" value="@ViewBag.Persona.Nombre" class="form-control" id="nombre" placeholder="Nombre">
             </div>
             <div class="form-group">
@@ -58,8 +58,8 @@
             </div>
         </div>
 
-        <button type="submit" onclick="edit()" class="btn btn-success">Aceptar</button>
-        <button type="submit" class="btn btn-default">@Html.ActionLink("Ir a página de inicio", "Index", "Home")</button>
+        <button type="button" onclick="edit()" class="btn btn-success">Aceptar</button>
+        <button type="button" class="btn btn-default">@Html.ActionLink("Ir a página de inicio", "Index", "Home")</button>
     </form>
 </div>
 
