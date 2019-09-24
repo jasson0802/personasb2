@@ -30,26 +30,61 @@ namespace registroPersonas.Controllers
             return View();
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(string cedula)
         {
+            if (!string.IsNullOrEmpty(cedula))
+            {
+                ViewBag.Persona = Persona.GetByCedula(cedula);   
+            }
+            else
+            {
+                Persona tempPersona = new Persona
+                {
+                    Nombre = "",
+                    Apellido1 = "",
+                    Apellido2 = "",
+                    Cedula = 0,
+                    Codelec = 0
+                };
+                ViewBag.Persona = tempPersona;
+            }
+
             ViewBag.Provincias = Provincia.GetAll();
             ViewBag.Cantones = Canton.GetAll();
             ViewBag.Distritos = Distrito.GetAll();
+
             return View();
         }
 
         public ActionResult Person(string nombre, string apellido1, string apellido2)
         {
-            ViewBag.Persona = Persona.Search(nombre, apellido1, apellido2);
+            Persona tempPersona = new Persona
+            {
+                Nombre = "",
+                Apellido1 = "",
+                Apellido2 = "",
+                Cedula = 0,
+                Codelec = 0
+            };
+
+            if (string.IsNullOrEmpty(nombre) && string.IsNullOrEmpty(apellido1) && string.IsNullOrEmpty(apellido2))
+            {
+                ViewBag.Persona = tempPersona;
+            }
+
+            else
+            {
+                ViewBag.Persona = Persona.Search(nombre, apellido1, apellido2);
+            }
             
             return View("Person");
         }
 
-        public ActionResult Person(string nombre, string apellido1, string apellido2, string cedula, string codelec)
+        public ActionResult EditResult(string nombre, string apellido1, string apellido2, string cedula, string codelec)
         {
             ViewBag.Persona = Persona.Edit(nombre, apellido1, apellido2, cedula, codelec);
 
-            return View("Person");
+            return View("EditResult");
         }
     }
 }

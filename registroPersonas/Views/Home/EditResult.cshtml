@@ -4,7 +4,6 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 <div class="jumbotron">
-    <input type="hidden" id="cedula" value="@ViewBag.Persona.Cedula" />
     <ul class="list-group">
         <li class="list-group-item">Nombre: @ViewBag.Persona.Nombre</li>
         <li class="list-group-item">Primer Apellido: @ViewBag.Persona.Apellido1</li>
@@ -15,15 +14,5 @@
     <button type="button" class="btn btn-default btn-lg">
         <span class="glyphicon glyphicon-edit"></span> @Html.ActionLink("Editar", "Edit", "Home")
     </button>
-
+    
 </div>
-<script>
-    function edit() {
-        cedula = "cedula=" + document.getElementById("cedula").value;
-        
-        var getUrl = window.location;
-        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-
-        window.location = baseUrl + "/Edit?" + cedula;
-    }
-</script>
