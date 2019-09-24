@@ -8,19 +8,20 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="exampleInputEmail1">Nombre</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+                <input type="hidden" value="@ViewBag.Persona.Cedula" class="form-control" id="idPersona">
+                <input type="text" value="@ViewBag.Persona.Nombre" class="form-control" id="nombre" placeholder="Nombre">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Primer Apellido</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Apellido">
+                <input type="text" value="@ViewBag.Persona.Apellido1" class="form-control" id="apellido1" placeholder="Apellido">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Segundo Apellido</label>
-                <input type="text" class="form-control" id="exampleInputPassword2" placeholder="Apellido">
+                <input type="text" value="@ViewBag.Persona.Apellido2" class="form-control" id="apellido2" placeholder="Apellido">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">CODELEC</label>
-                <input type="text" class="form-control" id="codelec" placeholder="Codelec">
+                <input type="text" value="@ViewBag.Persona.Codelec" class="form-control" id="codelec" placeholder="Codelec">
             </div>
         </div>
         <br />
@@ -57,7 +58,22 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success">Aceptar</button>
+        <button type="submit" onclick="edit()" class="btn btn-success">Aceptar</button>
         <button type="submit" class="btn btn-default">@Html.ActionLink("Ir a página de inicio", "Index", "Home")</button>
     </form>
 </div>
+
+<script>
+    function edit() {
+        cedula = "cedula=" + document.getElementById("cedula").value;
+        nombre = "nombre=" + document.getElementById("nombre").value;
+        apellido1 = "apellido1=" + document.getElementById("apellido1").value;
+        apellido2 = "apellido2=" + document.getElementById("apellido2").value;
+        codelec = "codelec=" + document.getElementById("codelec").value;
+
+        var getUrl = window.location;
+        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+        window.location = baseUrl + "/Edit?" + nombre + "&" + apellido1 + "&" + apellido2 + "&" + cedula + "&" + codelec;
+    }
+</script>

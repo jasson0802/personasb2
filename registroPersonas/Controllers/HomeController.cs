@@ -22,10 +22,11 @@ namespace registroPersonas.Controllers
             return View();
         }
 
-        public ActionResult Search()
+        public ActionResult Search(string nombre, string apellido1, string apellido2)
         {
             //ViewBag.Message = "Your application description page.";
             
+
             return View();
         }
 
@@ -39,8 +40,15 @@ namespace registroPersonas.Controllers
 
         public ActionResult Person(string nombre, string apellido1, string apellido2)
         {
-            ViewBag.Personas = Persona.Search(ViewBag.Persona);
+            ViewBag.Persona = Persona.Search(nombre, apellido1, apellido2);
             
+            return View("Person");
+        }
+
+        public ActionResult Person(string nombre, string apellido1, string apellido2, string cedula, string codelec)
+        {
+            ViewBag.Persona = Persona.Edit(nombre, apellido1, apellido2, cedula, codelec);
+
             return View("Person");
         }
     }

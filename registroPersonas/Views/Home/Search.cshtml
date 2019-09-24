@@ -32,6 +32,6 @@
         var getUrl = window.location;
         var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-        window.location.replace(baseUrl + "/Person?" + nombre + "&" + apellido1 + "&" + apellido2);
+        window.location = baseUrl + "/Person?" + nombre + "&" + apellido1 + "&" + apellido2;
     }
 </script>
