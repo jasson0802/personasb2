@@ -25,10 +25,13 @@
 
 <script>
     function search() {
-        alert("ENTRA!!!")
         nombre = "nombre=" + document.getElementById("nombre").value;
         apellido1 = "apellido1=" + document.getElementById("apellido1").value;
         apellido2 = "apellido2=" + document.getElementById("apellido2").value;
-        window.location.href = "../Person?" + nombre + "&" + apellido1 + "&" + apellido2;
+
+        var getUrl = window.location;
+        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+        window.location.replace(baseUrl + "/Person?" + nombre + "&" + apellido1 + "&" + apellido2);
     }
 </script>

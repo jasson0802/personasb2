@@ -41,8 +41,7 @@ namespace registroPersonas.Controllers
         {
             ViewBag.Personas = Persona.Search(ViewBag.Persona);
             
-            //ViewBag.Message = "Your contact page.";
-            return View();
+            return View("Person");
         }
     }
 }
