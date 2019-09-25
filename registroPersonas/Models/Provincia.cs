@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using Oracle.ManagedDataAccess;
 using Oracle.ManagedDataAccess.Client;
+using System.Data.SqlClient;
 
 namespace registroPersonas.Models
 {

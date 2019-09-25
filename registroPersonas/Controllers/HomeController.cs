@@ -22,10 +22,11 @@ namespace registroPersonas.Controllers
             return View();
         }
 
-        public ActionResult Search(string nombre, string apellido1, string apellido2)
+        public ActionResult Search(string database)
         {
             //ViewBag.Message = "Your application description page.";
-            
+
+            System.Web.HttpContext.Current.Session["database"] = database;
 
             return View();
         }
