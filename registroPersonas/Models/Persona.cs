@@ -343,21 +343,39 @@ namespace registroPersonas.Models
                     DataTable dt = new DataTable();
                     oda.Fill(dt);
 
-                    DataRow dr = dt.Rows[0];
-
-                    Persona tempPersona = new Persona
+                    if (dt.Rows.Count > 0)
                     {
-                        Cedula = Convert.ToInt32(dr["Cedula"]),
-                        Codelec = Convert.ToInt32(dr["Codelec"]),
-                        Sexo = Convert.ToInt32(dr["Sexo"]),
-                        fecha_caduc = Convert.ToDateTime(dr["fecha_caduc"]),
-                        Junta = Convert.ToInt32(dr["Junta"]),
-                        Nombre = Convert.ToString(dr["Nombre"]),
-                        Apellido1 = Convert.ToString(dr["Apellido1"]),
-                        Apellido2 = Convert.ToString(dr["Apellido2"])
-                    };
+                        DataRow dr = dt.Rows[0];
 
-                    responsePersona = tempPersona;
+                        Persona tempPersona = new Persona
+                        {
+                            Cedula = Convert.ToInt32(dr["Cedula"]),
+                            Codelec = Convert.ToInt32(dr["Codelec"]),
+                            Sexo = Convert.ToInt32(dr["Sexo"]),
+                            fecha_caduc = Convert.ToDateTime(dr["fecha_caduc"]),
+                            Junta = Convert.ToInt32(dr["Junta"]),
+                            Nombre = Convert.ToString(dr["Nombre"]),
+                            Apellido1 = Convert.ToString(dr["Apellido1"]),
+                            Apellido2 = Convert.ToString(dr["Apellido2"])
+                        };
+
+                        responsePersona = tempPersona;
+                    }
+
+                    else {
+                        Persona tempPersona = new Persona
+                        {
+                            Cedula = 0,
+                            Codelec = 0,
+                            Sexo = 1,
+                            fecha_caduc = new DateTime(),
+                            Junta = 0,
+                            Nombre = "NOT FOUND",
+                            Apellido1 = "",
+                            Apellido2 = ""
+                        };
+                        responsePersona = tempPersona;
+                    }
                 }
 
                 catch(Exception ex)
