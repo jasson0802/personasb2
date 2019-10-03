@@ -33,9 +33,12 @@ namespace registroPersonas.Controllers
 
         public ActionResult Edit(string cedula)
         {
+            Persona ControllerPerson = new Persona();
+
             if (!string.IsNullOrEmpty(cedula))
             {
-                ViewBag.Persona = Persona.GetByCedula(cedula);   
+                ControllerPerson = Persona.GetByCedula(cedula);
+                ViewBag.Persona = ControllerPerson;
             }
             else
             {
@@ -47,12 +50,42 @@ namespace registroPersonas.Controllers
                     Cedula = 0,
                     Codelec = 0
                 };
-                ViewBag.Persona = tempPersona;
+
+                ControllerPerson = tempPersona;
+                ViewBag.Persona = ControllerPerson;
             }
 
-            ViewBag.Provincias = Provincia.GetAll();
-            ViewBag.Cantones = Canton.GetAll();
-            ViewBag.Distritos = Distrito.GetAll();
+            var tempCodelec = ControllerPerson.Codelec.ToString();
+            var tempDistrito = Distrito.GetByCodelec(ControllerPerson.Codelec);
+
+            var tempProvincia = 1;
+            if (ControllerPerson.Codelec != 0)
+            {
+                try
+                {
+                    tempProvincia = tempDistrito.FirstOrDefault().IDProvincia;
+                    var tempCantones = Canton.GetByProvincia(tempProvincia);
+
+                    ViewBag.Provincias = Provincia.GetAll();
+                    ViewBag.Cantones = tempCantones;
+                    ViewBag.Distritos = tempDistrito;
+                    ViewBag.SelectedProvincia = tempDistrito.FirstOrDefault().IDProvincia;
+                    ViewBag.SelectedCanton = tempDistrito.FirstOrDefault().IDCanton;
+                }
+                catch
+                {
+                    Console.WriteLine("Cannot get provincia from codelec");
+                }
+            }
+
+            else
+            {
+                ViewBag.Provincias = new List<Provincia>();
+                ViewBag.Cantones = new List<Canton>();
+                ViewBag.Distritos = new List<Distrito>();
+                ViewBag.SelectedProvincia = 0;
+                ViewBag.SelectedCanton = 0;
+            }
 
             return View();
         }
@@ -81,7 +114,7 @@ namespace registroPersonas.Controllers
             return View("Person");
         }
 
-        public ActionResult EditResult(string nombre, string apellido1, string apellido2, string cedula, string codelec)
+        public ActionResult EditResult(string nombre, string apellido1, string apellido2, string cedula, string codelec, string sexo, string junta)
         {
             Persona tempPersona = new Persona
             {
@@ -89,12 +122,14 @@ namespace registroPersonas.Controllers
                 Apellido1 = "",
                 Apellido2 = "",
                 Cedula = 0,
-                Codelec = 0
+                Codelec = 0,
+                Sexo = 0,
+                Junta = 0
             };
 
             if (!string.IsNullOrEmpty(cedula))
             {
-                ViewBag.Persona = Persona.Edit(nombre, apellido1, apellido2, cedula, codelec);
+                ViewBag.Persona = Persona.Edit(nombre, apellido1, apellido2, cedula, codelec, sexo, junta);
             }
             else {
                 ViewBag.Persona = tempPersona;

@@ -24,56 +24,104 @@
                 <input type="text" value="@ViewBag.Persona.Codelec" class="form-control" id="codelec" placeholder="Codelec">
             </div>
         </div>
-        <br />
         <div class="col-lg-6">
             <div class="form-group">
-                <label for="exampleInputPassword1">Provincia</label>
-                <select type="text" class="form-control" id="codelec" placeholder="Codelec">
-                    <option value="1">San José</option>
-                    <option value="2">Alajuela</option>
-                    <option value="3">Cartago</option>
-                    <option value="4">Heredia</option>
-                    <option value="5">Guanacaste</option>
-                    <option value="6">Puntarenas</option>
-                    <option value="7">Limón</option>
+                <label for="exampleInputPassword1">Sexo</label>
+                <select id="sexo">
+                    @if (@ViewBag.Persona.Sexo == 1)
+                    {
+                        <option selected="selected" value="1">M</option>
+                        <option value="2">F</option>
+                    }
+                    else
+                    {
+                        <option value="1">M</option>
+                        <option selected="selected" value="2">F</option>
+                    }
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Junta</label>
+                <input type="text" value="@ViewBag.Persona.Junta" class="form-control" id="junta" placeholder="Junta">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Provincia</label>
+                @foreach (var provincia in @ViewBag.Provincias)
+        {
+            if (provincia.IDProvincia == @ViewBag.SelectedProvincia)
+            {
+                <h4>@provincia.Nombre</h4>
+
+    }
+}
+                <!--<select value="@ViewBag.SelectedProvincia" type="text" class="form-control" id="provincia" placeholder="Codelec">
+            @foreach (var provincia in @ViewBag.Provincias)
+            {
+                if (provincia.IDProvincia == @ViewBag.SelectedProvincia)
+                {
+                    <option selected="selected" value="@provincia.IDProvincia">@provincia.Nombre</option>
+                }
+                else
+                {
+                    <option value="@provincia.IDProvincia">@provincia.Nombre</option>
+                }
+            }
+        </select>-->
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Cantón</label>
-                <select type="text" class="form-control" id="codelec" placeholder="Codelec">
-                    @foreach (var canton in @ViewBag.Cantones)
-                    {
-                    <option value="@canton.IDCanton">@canton.Nombre</option> 
-                    }
-                </select>
+                @foreach (var canton in @ViewBag.Cantones)
+        {
+            if (canton.IDCanton == @ViewBag.SelectedCanton)
+            {
+                <h4>@canton.Nombre</h4>
+    }
+}
+                <!--<select type="text" value ="@ViewBag.SelectedCanton" class="form-control" id="canton" placeholder="Codelec">
+            @foreach (var canton in @ViewBag.Cantones)
+            {
+                if (canton.IDCanton == @ViewBag.SelectedCanton)
+                {
+                    <option selected="selected" value="@canton.IDCanton">@canton.Nombre</option>
+                }
+                else
+                {
+                    <option value="@canton.IDCanton">@canton.Nombre</option>
+                }
+            }
+        </select>-->
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Distrito</label>
-                <select type="text" class="form-control" id="codelec" placeholder="Codelec">
-                    @foreach (var distrito in @ViewBag.Distritos)
-                    {
-                     <option value="@distrito.Codelec">@distrito.Nombre</option>
-                    }
-                </select>
+                @foreach (var distrito in @ViewBag.Distritos)
+        {
+            <h4>@distrito.Nombre</h4>
+}
+                <!--<select type="text" class="form-control" id="distrito" placeholder="Codelec"></select>
+        <option value="distrito.Codelec">distrito.Nombre</option>-->
             </div>
         </div>
 
-        <button type="button" onclick="edit()" class="btn btn-success">Aceptar</button>
-        <button type="button" class="btn btn-default">@Html.ActionLink("Ir a página de inicio", "Index", "Home")</button>
-    </form>
-</div>
+                <button type="button" onclick="edit()" class="btn btn-success">Aceptar</button>
+                <button type="button" class="btn btn-default">@Html.ActionLink("Ir a página de inicio", "Index", "Home")</button>
+            </form>
+            <br /><br />
+        </div>
 
-<script>
-    function edit() {
-        cedula = "cedula=" + document.getElementById("cedula").value;
-        nombre = "nombre=" + document.getElementById("nombre").value;
-        apellido1 = "apellido1=" + document.getElementById("apellido1").value;
-        apellido2 = "apellido2=" + document.getElementById("apellido2").value;
-        codelec = "codelec=" + document.getElementById("codelec").value;
+    <script>
+        function edit() {
+            cedula = "cedula=" + document.getElementById("cedula").value;
+            nombre = "nombre=" + document.getElementById("nombre").value;
+            apellido1 = "apellido1=" + document.getElementById("apellido1").value;
+            apellido2 = "apellido2=" + document.getElementById("apellido2").value;
+            codelec = "codelec=" + document.getElementById("codelec").value;
+            sexo = "sexo=" + document.getElementById("sexo").value;
+            junta = "junta=" + document.getElementById("junta").value;
 
-        var getUrl = window.location;
-        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+            var getUrl = window.location;
+            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-        window.location = baseUrl + "/EditResult?" + nombre + "&" + apellido1 + "&" + apellido2 + "&" + cedula + "&" + codelec;
-    }
-</script>
+            window.location = baseUrl + "/EditResult?" + nombre + "&" + apellido1 + "&" + apellido2 + "&" + cedula + "&" + codelec + "&" + sexo + "&" + junta;
+        }
+    </script>

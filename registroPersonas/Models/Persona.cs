@@ -94,7 +94,7 @@ namespace registroPersonas.Models
             {
                 try
                 {
-                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PadronConnectionString"].ConnectionString))
+                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ClusterConnectionString"].ConnectionString))
                     {
                         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
                         conn.Open();
@@ -143,7 +143,7 @@ namespace registroPersonas.Models
             return Personas.FirstOrDefault();
         }
 
-        internal static dynamic Edit(string nombre, string apellido1, string apellido2, string cedula, string codelec)
+        internal static dynamic Edit(string nombre, string apellido1, string apellido2, string cedula, string codelec, string sexo, string junta)
         {
             Persona responsePersona = new Persona();
             var database = System.Web.HttpContext.Current.Session["database"] as String;
@@ -168,8 +168,13 @@ namespace registroPersonas.Models
                 row["nombre"] = nombre;
                 row["apellido1"] = apellido1;
                 row["apellido2"] = apellido2;
-                row["codelec"] = codelec;
+                row["sexo"] = sexo;
+                row["junta"] = junta;
 
+                if (!string.IsNullOrEmpty(codelec)) {
+                    row["codelec"] = codelec;
+                }
+                
                 oda.Update(dt);
 
                 try
@@ -200,24 +205,56 @@ namespace registroPersonas.Models
             }
             else
             {
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PadronConnectionString"].ConnectionString))
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ClusterConnectionString"].ConnectionString))
                 {
-                    SqlCommand sqlCmd = new SqlCommand("UPDATE Personas SET codelec = @codelec, nombre = @nombre, apellido1 = @apellido1, apellido2 = @apellido2 WHERE cedula = @cedula", conn);
+                    SqlCommand sqlCmd = new SqlCommand("UPDATE Personas SET codelec = @codelec, nombre = @nombre, apellido1 = @apellido1, apellido2 = @apellido2, sexo = @sexo, junta = @junta  WHERE cedula = @cedula", conn);
 
-                    sqlCmd.Parameters.Add("@codelec", SqlDbType.Int);
-                    sqlCmd.Parameters["@codelec"].Value = codelec;
+                    if (!string.IsNullOrEmpty(codelec))
+                    {
+                        sqlCmd.Parameters.Add("@codelec", SqlDbType.Int);
+                        sqlCmd.Parameters["@codelec"].Value = codelec;
 
-                    sqlCmd.Parameters.Add("@nombre", SqlDbType.NVarChar);
-                    sqlCmd.Parameters["@nombre"].Value = nombre;
+                        sqlCmd.Parameters.Add("@nombre", SqlDbType.NVarChar);
+                        sqlCmd.Parameters["@nombre"].Value = nombre;
 
-                    sqlCmd.Parameters.Add("@apellido1", SqlDbType.NVarChar);
-                    sqlCmd.Parameters["@apellido1"].Value = apellido1;
+                        sqlCmd.Parameters.Add("@apellido1", SqlDbType.NVarChar);
+                        sqlCmd.Parameters["@apellido1"].Value = apellido1;
 
-                    sqlCmd.Parameters.Add("@apellido2", SqlDbType.NVarChar);
-                    sqlCmd.Parameters["@apellido2"].Value = apellido2;
+                        sqlCmd.Parameters.Add("@apellido2", SqlDbType.NVarChar);
+                        sqlCmd.Parameters["@apellido2"].Value = apellido2;
 
-                    sqlCmd.Parameters.Add("@cedula", SqlDbType.Int);
-                    sqlCmd.Parameters["@cedula"].Value = cedula;
+                        sqlCmd.Parameters.Add("@cedula", SqlDbType.Int);
+                        sqlCmd.Parameters["@cedula"].Value = cedula;
+
+                        sqlCmd.Parameters.Add("@sexo", SqlDbType.Int);
+                        sqlCmd.Parameters["@sexo"].Value = sexo;
+
+                        sqlCmd.Parameters.Add("@junta", SqlDbType.Int);
+                        sqlCmd.Parameters["@junta"].Value = junta;
+                    }
+
+                    else
+                    {
+                        sqlCmd = new SqlCommand("UPDATE Personas SET nombre = @nombre, apellido1 = @apellido1, apellido2 = @apellido2, sexo = @sexo, junta = @junta  WHERE cedula = @cedula", conn);
+
+                        sqlCmd.Parameters.Add("@nombre", SqlDbType.NVarChar);
+                        sqlCmd.Parameters["@nombre"].Value = nombre;
+
+                        sqlCmd.Parameters.Add("@apellido1", SqlDbType.NVarChar);
+                        sqlCmd.Parameters["@apellido1"].Value = apellido1;
+
+                        sqlCmd.Parameters.Add("@apellido2", SqlDbType.NVarChar);
+                        sqlCmd.Parameters["@apellido2"].Value = apellido2;
+
+                        sqlCmd.Parameters.Add("@cedula", SqlDbType.Int);
+                        sqlCmd.Parameters["@cedula"].Value = cedula;
+
+                        sqlCmd.Parameters.Add("@sexo", SqlDbType.Int);
+                        sqlCmd.Parameters["@sexo"].Value = sexo;
+
+                        sqlCmd.Parameters.Add("@junta", SqlDbType.Int);
+                        sqlCmd.Parameters["@junta"].Value = junta;
+                    }
 
                     try
                     {
@@ -273,24 +310,39 @@ namespace registroPersonas.Models
 
             return responsePersona;
         }
-    
+        
+        public static string UpperFirstLetter(string word)
+        {
+            string after = char.ToUpper(word.First()) + word.Substring(1).ToLower();
+            return after;
+        }
 
         public static Persona Search(string nombre, string apellido1, string apellido2)
         {
             Persona responsePersona = new Persona();
             var database = System.Web.HttpContext.Current.Session["database"] as String;
-            string sqlQuery = string.Format("SELECT * from Personas WHERE nombre = '{0}' OR apellido1 = '{1}' OR apellido2 = '{1}'", nombre.ToUpper(), apellido1.ToUpper(), apellido2.ToUpper());
+            string sqlQuery = string.Format("SELECT * from Personas WHERE nombre = '{0}' ", nombre.ToUpper());
+
+            if (!string.IsNullOrEmpty(apellido1))
+            {
+                sqlQuery = sqlQuery + string.Format("AND apellido1 IN ('{0}', '{1}', '{2}') ", apellido1.ToUpper(), apellido1.ToLower(), UpperFirstLetter(apellido1));
+            }
+
+            if (!string.IsNullOrEmpty(apellido2))
+            {
+                sqlQuery = sqlQuery + string.Format("AND apellido2 IN ('{0}', '{1}', '{2}') ", apellido2.ToUpper(), apellido2.ToLower(), UpperFirstLetter(apellido2));
+            }
 
             if (database == "Oracle")
             {
-                connection.Open();
-                
-                OracleDataAdapter oda = new OracleDataAdapter(sqlQuery, connection);
-                DataTable dt = new DataTable();
-                oda.Fill(dt);
-
                 try
                 {
+                    connection.Open();
+
+                    OracleDataAdapter oda = new OracleDataAdapter(sqlQuery, connection);
+                    DataTable dt = new DataTable();
+                    oda.Fill(dt);
+
                     DataRow dr = dt.Rows[0];
 
                     Persona tempPersona = new Persona
@@ -308,8 +360,9 @@ namespace registroPersonas.Models
                     responsePersona = tempPersona;
                 }
 
-                catch
+                catch(Exception ex)
                 {
+                    Console.WriteLine(ex.ToString());
                     Persona tempPersona = new Persona
                     {
                         Cedula = 0,
@@ -317,7 +370,7 @@ namespace registroPersonas.Models
                         Sexo = 0,
                         fecha_caduc = new DateTime(),
                         Junta = 0,
-                        Nombre = "",
+                        Nombre = "Cannot connect to Oracle Database",
                         Apellido1 = "",
                         Apellido2 = ""
                     };
@@ -332,7 +385,7 @@ namespace registroPersonas.Models
             {
                 try
                 {
-                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PadronConnectionString"].ConnectionString))
+                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ClusterConnectionString"].ConnectionString))
                     {
                         List<Persona> Personas = new List<Persona>();
                         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
@@ -363,6 +416,19 @@ namespace registroPersonas.Models
                         }
                         else
                         {
+                            Persona tempPersona = new Persona
+                            {
+                                Cedula = 0,
+                                Codelec = 0,
+                                Sexo = 0,
+                                fecha_caduc = new DateTime(),
+                                Junta = 0,
+                                Nombre = "NOT FOUND",
+                                Apellido1 = "",
+                                Apellido2 = ""
+                            };
+
+                            Personas.Add(tempPersona);
                             Console.WriteLine("No data found.");
                         }
 
@@ -377,6 +443,15 @@ namespace registroPersonas.Models
                 }
                 catch (Exception ex)
                 {
+                    responsePersona.Cedula = 0;
+                    responsePersona.Codelec = 0;
+                    responsePersona.Sexo = 0;
+                    responsePersona.fecha_caduc = new DateTime();
+                    responsePersona.Junta = 0;
+                    responsePersona.Nombre = "Error reaching SQL Server Database";
+                    responsePersona.Apellido1 = "";
+                    responsePersona.Apellido2 = "";
+                    
                     Console.WriteLine("Exception: " + ex.Message);
                 }
             }

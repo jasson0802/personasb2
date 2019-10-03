@@ -4,4 +4,8 @@
     <parameterEntry kind="XmlFile" scope="C:\\Users\\Jason\\Documents\\Visual\ Studio\ 2017\\Projects\\registroPersonas\\registroPersonas\\obj\\Release\\Package\\PackageTmp\\bin\\Web\.config$" match="/configuration/connectionStrings/add[@name='OracleDB']/@connectionString" />
     <parameterEntry kind="XmlFile" scope="C:\\Users\\Jason\\Documents\\Visual\ Studio\ 2017\\Projects\\registroPersonas\\registroPersonas\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='OracleDB']/@connectionString" />
   </parameter>
+  <parameter name="PadronConnectionString-Web.config Connection String" description="PadronConnectionString Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="Data Source=40.76.79.202,1401;Initial Catalog=Padron;User ID=Upadron;Password=Sqlservercluster1!" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Jason\\Documents\\Visual\ Studio\ 2017\\Projects\\registroPersonas\\registroPersonas\\obj\\Release\\Package\\PackageTmp\\bin\\Web\.config$" match="/configuration/connectionStrings/add[@name='PadronConnectionString']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Jason\\Documents\\Visual\ Studio\ 2017\\Projects\\registroPersonas\\registroPersonas\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='PadronConnectionString']/@connectionString" />
+  </parameter>
 </parameters>

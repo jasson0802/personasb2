@@ -1,24 +1,39 @@
-﻿@{
-    ViewBag.Title = "Información de persona";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿<h2>Información de persona</h2>
 <div class="jumbotron">
-    <input type="hidden" id="cedula" value="@ViewBag.Persona.Cedula" />
-    <ul class="list-group">
-        <li class="list-group-item">Nombre: @ViewBag.Persona.Nombre</li>
-        <li class="list-group-item">Primer Apellido: @ViewBag.Persona.Apellido1</li>
-        <li class="list-group-item">Segundo Apellido: @ViewBag.Persona.Apellido2</li>
-        <li class="list-group-item">Cédula: @ViewBag.Persona.Cedula</li>
-        <li class="list-group-item">CODELEC: @ViewBag.Persona.Codelec</li>
-    </ul>
+    <div class="col-lg-6">
+        <input type="hidden" id="cedula" value="@ViewBag.Persona.Cedula" />
+        <ul class="list-group">
+            <li class="list-group-item">Nombre: @ViewBag.Persona.Nombre</li>
+            <li class="list-group-item">Primer Apellido: @ViewBag.Persona.Apellido1</li>
+            <li class="list-group-item">Segundo Apellido: @ViewBag.Persona.Apellido2</li>
+            <li class="list-group-item">Cédula: @ViewBag.Persona.Cedula</li>
+            <li class="list-group-item">CODELEC: @ViewBag.Persona.Codelec</li>
+        </ul>
+    </div>
+    <div class="col-lg-6">
+        <input type="hidden" id="cedula" value="@ViewBag.Persona.Cedula" />
+        <ul class="list-group">
+            @{
+                if (@ViewBag.Persona.Sexo == 1)
+                {
+                    <li class="list-group-item">Sexo: M</li>
+                }
+                else
+                {
+                    <li class="list-group-item">Sexo: F</li>
+                }
+            }
+            <li class="list-group-item">Junta: @ViewBag.Persona.Junta</li>
+            <li class="list-group-item">Fecha Expiracion: @ViewBag.Persona.fecha_caduc</li>
+        </ul>
+    </div>
 
     <!--@Html.ActionLink("Editar", "Edit", "Home")-->
 
     <button type="button" onclick="edit()" class="btn btn-default btn-lg">
         <span class="glyphicon glyphicon-edit"></span>Editar
     </button>
-
+    </br></br>
 </div>
 <script>
     function edit() {
